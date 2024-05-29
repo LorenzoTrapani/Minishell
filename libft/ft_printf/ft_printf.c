@@ -5,66 +5,60 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lotrapan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/26 12:05:02 by lotrapan          #+#    #+#             */
-/*   Updated: 2023/10/30 14:15:54 by lotrapan         ###   ########.fr       */
+/*   Created: 2023/12/11 13:06:24 by lotrapan          #+#    #+#             */
+/*   Updated: 2024/02/21 18:14:40 by lotrapan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-static int	ft_type(va_list args, const char s)
+static int	ft_formats(va_list args, const char format, int fd)
 {
-	int	i;
+	int	print_length;
 
-	i = 0;
-	if (s == 'c')
-		i = ft_putchar(va_arg(args, int));
-	else if (s == 's')
-		return (ft_putstr(va_arg(args, char *)));
-	else if (s == 'p')
-		return (ft_puthex(va_arg(args, uintptr_t), 0));
-	else if (s == 'd')
-		return (ft_putnbr(va_arg(args, int)));
-	else if (s == 'i')
-		return (ft_putnbr(va_arg(args, int)));
-	else if (s == 'u')
-		return (ft_putunnbr(va_arg(args, unsigned int)));
-	else if (s == 'x')
-		return (ft_puthexlow(va_arg(args, unsigned int)));
-	else if (s == 'X')
-		return (ft_puthexupp(va_arg(args, unsigned int)));
-	else if (s == '%')
-		return (ft_putperc(s));
-	return (i);
+	print_length = 0;
+	if (format == 'c')
+		print_length += ft_putchar_fd(va_arg(args, int), fd);
+	else if (format == 's')
+		print_length += ft_putstr_fd(va_arg(args, char *), fd);
+	else if (format == 'd' || format == 'i')
+		print_length += ft_putnbr_fd(va_arg(args, int), fd);
+	else if (format == 'u')
+		print_length += ft_putunsigned_fd(va_arg(args, unsigned int), fd);
+	else if (format == 'x' || format == 'X')
+		print_length += ft_puthex_fd(va_arg(args, unsigned int), format, fd);
+	else if (format == 'p')
+		print_length += ft_putptr_fd(va_arg(args, uintptr_t), fd);
+	else if (format == '%')
+		print_length += ft_putchar_fd('%', fd);
+	return (print_length);
 }
 
-int	ft_printf(const char *input, ...)
+int	ft_printf(int fd, const char *str, ...)
 {
-	va_list	args;
 	int		i;
+	va_list	args;
+	int		print_length;
 
 	i = 0;
-	va_start(args, input);
-	while (*input)
+	print_length = 0;
+	if (!(fd == -1) && !(fd >= FD_MAX))
 	{
-		if (*input == '%')
+		if (!str)
+			return (-1);
+		va_start(args, str);
+		while (str && str[i])
 		{
-			input++;
-			i += ft_type(args, *input);
+			if (str[i] == '%')
+			{
+				print_length += ft_formats(args, str[i + 1], fd);
+				i++;
+			}
+			else
+				print_length += ft_putchar_fd(str[i], fd);
+			i++;
 		}
-		else
-			i += ft_putchar(*input);
-		input++;
+		va_end(args);
 	}
-	va_end(args);
-	return (i);
+	return (print_length);
 }
-
-// int main()
-// {
-// 	int i = 0;
-// 	//char *c = "fdf";
-// 	i = ft_printf("%s %d %i %%\n", "-42", 2 ,2);
-// 	ft_printf("%d\n", i);
-// 	return (0);
-// }

@@ -3,17 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chsassi <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: lotrapan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/21 16:46:05 by chsassi           #+#    #+#             */
-/*   Updated: 2024/05/21 16:46:10 by chsassi          ###   ########.fr       */
+/*   Created: 2024/05/29 14:02:51 by lotrapan          #+#    #+#             */
+/*   Updated: 2024/05/29 14:02:53 by lotrapan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-
-void	builtin_pwd(t_builtin	*pBuiltin)
-{
-	pBuiltin->path = getenv("PATH");
-	printf("%s", pBuiltin->path);
-}

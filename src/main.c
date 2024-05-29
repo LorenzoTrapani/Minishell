@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chsassi <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: lotrapan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/21 11:16:01 by chsassi           #+#    #+#             */
-/*   Updated: 2024/05/21 16:45:47 by chsassi          ###   ########.fr       */
+/*   Created: 2024/05/29 14:01:13 by lotrapan          #+#    #+#             */
+/*   Updated: 2024/05/29 14:04:10 by lotrapan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int main()
 {
 	char	*shell;
+	(void)shell;
 	// t_builtin	ptr;
 	// ptr = (t_builtin){0};
 	// builtin_pwd(&ptr);
@@ -22,7 +23,7 @@ int main()
 	while (42)
 	{
 		shell = readline("Minishell > ");
-		parse_line(shell);
+		// parse_line(shell);
 
 	}
 

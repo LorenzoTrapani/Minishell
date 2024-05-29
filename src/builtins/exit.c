@@ -3,17 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chsassi <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: lotrapan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/21 16:46:05 by chsassi           #+#    #+#             */
-/*   Updated: 2024/05/21 16:46:10 by chsassi          ###   ########.fr       */
+/*   Created: 2024/05/29 14:02:54 by lotrapan          #+#    #+#             */
+/*   Updated: 2024/05/29 14:02:56 by lotrapan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-
-int		builtin_exit(t_all *pAll)
-{
-	(void)pAll; //free all;
-	exit(0);
-}
