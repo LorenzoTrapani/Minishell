@@ -6,15 +6,13 @@
 /*   By: lotrapan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 17:42:47 by chsassi           #+#    #+#             */
-/*   Updated: 2024/05/29 14:13:24 by lotrapan         ###   ########.fr       */
+/*   Updated: 2024/05/31 16:37:15 by lotrapan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
-# include "ft_printf.h"
-# include "gnl.h"
 # include <stdio.h>
 # include <unistd.h>
 # include <string.h>
@@ -24,6 +22,7 @@
 # include <fcntl.h>
 # include <strings.h>
 # include <stdint.h>
+# include <limits.h>
 
 
 #  define FD_MAX 4096
@@ -510,5 +509,7 @@ int		ft_putunsigned_fd(unsigned int n, int fd);
 int		ft_puthex_fd(unsigned int num, char format, int fd);
 
 int		ft_putptr_fd(uintptr_t ptr, int fd);
+
+int		ft_printf(int fd, const char *format, ...);
 
 #endif

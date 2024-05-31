@@ -6,7 +6,7 @@ CFLAGS = -Wextra -Werror -Wall -g -I$(INCLUDES)
 COMPILE = $(CC) $(CFLAGS) -c
 RM = rm -f
 LIBFT_DIR = ./libft
-
+LIBFT = $(LIBFT_DIR)/libft.a
 
 
 GREEN=\033[0;32m
@@ -25,15 +25,14 @@ SRC =	./src/main.c \
 
 all: $(NAME)
 
-libft:
+$(LIBFT):
 	make all -C $(LIBFT_DIR)
 
-$(NAME): libft $(SRC)
-	$(CC) $(CFLAGS) -I. -I$(INCLUDES) $(SRC) -L$(LIBFT_DIR) -lreadline -o $(NAME)
+$(NAME): $(LIBFT) $(SRC)
+	$(CC) $(CFLAGS) $(SRC) -L$(LIBFT_DIR) -lft -lreadline -o $(NAME)
 
 	@echo "$(BLUE)	MINISHELL COMPILED!$(RESET)"
-
-
+	
 clean:
 	make clean -C $(LIBFT_DIR)
 

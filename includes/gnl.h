@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   gnl.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chsassi <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: lotrapan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 16:46:24 by chsassi           #+#    #+#             */
-/*   Updated: 2023/12/04 16:46:25 by chsassi          ###   ########.fr       */
+/*   Updated: 2024/05/31 16:30:57 by lotrapan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#ifndef GNL_H
+
+# ifndef GNL_H
 # define GNL_H
 
 # ifndef BUFFER_SIZE
@@ -17,12 +18,8 @@
 
 # endif
 
-# include <unistd.h>
-# include <stdio.h>
-# include <stddef.h>
-# include <stdlib.h>
-# include <fcntl.h>
-# include <limits.h>
+# include "libft.h"
+
 
 /**
  * @brief Reads a line from a file descriptor and returns it as a string.
