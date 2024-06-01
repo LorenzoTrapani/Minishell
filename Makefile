@@ -32,6 +32,9 @@ $(NAME): $(LIBFT) $(SRC)
 	$(CC) $(CFLAGS) $(SRC) -L$(LIBFT_DIR) -lft -lreadline -o $(NAME)
 
 	@echo "$(BLUE)	MINISHELL COMPILED!$(RESET)"
+
+valgrind: $(NAME)
+	valgrind --leak-check=full --show-reachable=yes --suppressions=readline.supp ./$(NAME)
 	
 clean:
 	make clean -C $(LIBFT_DIR)

@@ -6,7 +6,7 @@
 /*   By: lotrapan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:15:46 by chsassi           #+#    #+#             */
-/*   Updated: 2024/05/31 17:23:30 by lotrapan         ###   ########.fr       */
+/*   Updated: 2024/06/01 20:07:20 by lotrapan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,8 @@ typedef struct	s_all
 
 t_all   parse_line(char *input);
 
-void	builtin_pwd(t_builtin	*pBuiltin);
-void	builtin_exit(char **av);
-void	builtin_env(t_builtin *pBuiltin);
-void	builtin_echo(char *message, bool flag);
+int		builtin_exit(char **av);
+void	builtin_echo(char **av);
+int		char_rep_check(char *str, char c);
 
 #endif
