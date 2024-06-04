@@ -6,7 +6,7 @@
 /*   By: lotrapan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 14:01:13 by lotrapan          #+#    #+#             */
-/*   Updated: 2024/06/04 20:09:54 by lotrapan         ###   ########.fr       */
+/*   Updated: 2024/06/04 20:25:57 by lotrapan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,8 @@ int main()
 			builtin_exit(NULL); */
 		if (ft_strncmp(line.str, "exit", 5) == 0)
 			builtin_exit(&line);
-		/* if (ft_strncmp(all.str, "echo", 5) == 0)
-			builtin_echo(&all); */
+		if (ft_strncmp(line.str, "echo", 5) == 0)
+			builtin_echo(&line);
 		free(shell);
 		//ft_lstclear(&all);
 	}

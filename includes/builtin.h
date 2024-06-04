@@ -6,7 +6,7 @@
 /*   By: lotrapan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 11:24:46 by lotrapan          #+#    #+#             */
-/*   Updated: 2024/06/04 20:11:59 by lotrapan         ###   ########.fr       */
+/*   Updated: 2024/06/04 20:32:24 by lotrapan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int					check_bash_size(long nbr);
 unsigned int		ft_uatoi(const char *str);
 void				builtin_echo(t_list *shell);
 int					char_rep_check(char *str, char c);
+void				print_echo(t_list *tmp);
 t_list   			*fake_parse(char *input);
 int					numeric_check(t_list *shell);
 

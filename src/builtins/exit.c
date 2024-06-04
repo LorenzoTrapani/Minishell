@@ -6,7 +6,7 @@
 /*   By: lotrapan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 14:02:54 by lotrapan          #+#    #+#             */
-/*   Updated: 2024/06/04 20:14:44 by lotrapan         ###   ########.fr       */
+/*   Updated: 2024/06/04 20:36:06 by lotrapan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ unsigned int	ft_uatoi(const char *str)
 	return (n * sign);
 }
 
-int numeric_check(t_list *shell)
+int	numeric_check(t_list *shell)
 {
-	int	i;
+	int		i;
 	t_list	*tmp;
 
 	i = 0;
@@ -49,7 +49,7 @@ int numeric_check(t_list *shell)
 		tmp = tmp->next;
 	while (tmp)
 	{
-		while(tmp->str[i])
+		while (tmp->str[i])
 		{
 			if (tmp->str[i] == '-' || tmp->str[i] == '+')
 				i++;
@@ -73,7 +73,7 @@ int	builtin_exit(t_list *shell)
 		exit(exit_code);
 	if (shell->size > 2)
 	{
-		ft_printf(1, "minishell: exit: too many arguments\n");	
+		ft_printf(1, "minishell: exit: too many arguments\n");
 		return (1);
 	}
 	if (numeric_check(shell) == 0)

@@ -6,18 +6,18 @@
 /*   By: lotrapan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 14:02:57 by lotrapan          #+#    #+#             */
-/*   Updated: 2024/06/04 15:35:35 by lotrapan         ###   ########.fr       */
+/*   Updated: 2024/06/04 20:33:41 by lotrapan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* int	char_rep_check(char *str, char c)
+int	char_rep_check(char *str, char c)
 {
 	int	i;
 
 	i = 1;
-	while(str[i])
+	while (str[i])
 	{
 		if (str[i] != c)
 			return (0);
@@ -26,32 +26,40 @@
 	return (1);
 }
 
-void	builtin_echo(char **av)
+void	print_echo(t_list *tmp)
 {
-	int		i;
+	while (tmp)
+	{
+		ft_printf(1, "%s", tmp->str);
+		if (tmp->next)
+			ft_printf(1, " ");
+		tmp = tmp->next;
+	}
+}
+
+void	builtin_echo(t_list *shell)
+{
+	t_list	*tmp;
 	bool	flag;
 
-	i = 1;
+	tmp = shell;
 	flag = false;
-	if (av[1] == NULL)
+	if (!tmp->next)
 	{
 		ft_printf(1, "\n");
 		return ;
 	}
-	while (av[i] && av[i][0] == '-')
+	tmp = tmp->next;
+	while (tmp && tmp->str[0] == '-')
 	{
-		if (char_rep_check(av[i], 'n') && !flag)
+		if (char_rep_check(tmp->str, 'n') && !flag)
 			flag = true;
-		i++;
+		else
+			break ;
+		tmp = tmp->next;
 	}
-	while (av[i])
-	{
-		ft_printf(1, "%s", av[i]);
-		if (av[i + 1])
-			ft_printf(1, " ");
-		i++;
-	}
+	print_echo(tmp);
 	if (!flag)
 		ft_printf(1, "\n");
-	return ;	
-} */
+	return ;
+}
