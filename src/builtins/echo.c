@@ -6,13 +6,13 @@
 /*   By: lotrapan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 14:02:57 by lotrapan          #+#    #+#             */
-/*   Updated: 2024/06/01 19:18:17 by lotrapan         ###   ########.fr       */
+/*   Updated: 2024/06/04 15:35:35 by lotrapan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	char_rep_check(char *str, char c)
+/* int	char_rep_check(char *str, char c)
 {
 	int	i;
 
@@ -31,18 +31,19 @@ void	builtin_echo(char **av)
 	int		i;
 	bool	flag;
 
+	i = 1;
+	flag = false;
 	if (av[1] == NULL)
 	{
 		ft_printf(1, "\n");
 		return ;
 	}
-	i = 1;
-	flag = false;
-	if (av[i][0] == '-' && char_rep_check(av[1], 'n'))
+	while (av[i] && av[i][0] == '-')
 	{
-		flag = true;
+		if (char_rep_check(av[i], 'n') && !flag)
+			flag = true;
 		i++;
-	}	
+	}
 	while (av[i])
 	{
 		ft_printf(1, "%s", av[i]);
@@ -53,4 +54,4 @@ void	builtin_echo(char **av)
 	if (!flag)
 		ft_printf(1, "\n");
 	return ;	
-}
+} */
