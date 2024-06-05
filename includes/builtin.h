@@ -6,7 +6,7 @@
 /*   By: lotrapan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 11:24:46 by lotrapan          #+#    #+#             */
-/*   Updated: 2024/06/04 20:32:24 by lotrapan         ###   ########.fr       */
+/*   Updated: 2024/06/04 20:44:42 by lotrapan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,6 @@ int					char_rep_check(char *str, char c);
 void				print_echo(t_list *tmp);
 t_list   			*fake_parse(char *input);
 int					numeric_check(t_list *shell);
+void				free_shell(t_list *shell);
 
 #endif

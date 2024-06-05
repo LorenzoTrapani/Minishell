@@ -6,7 +6,7 @@
 /*   By: lotrapan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 14:02:54 by lotrapan          #+#    #+#             */
-/*   Updated: 2024/06/04 20:36:06 by lotrapan         ###   ########.fr       */
+/*   Updated: 2024/06/04 20:56:09 by lotrapan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,5 +83,6 @@ int	builtin_exit(t_list *shell)
 	}
 	if (shell->size == 2 && exit_code != 2)
 		exit_code = ft_uatoi(shell->next->str);
+	//free_shell(shell);
 	exit(exit_code);
 }

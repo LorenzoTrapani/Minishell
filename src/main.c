@@ -6,7 +6,7 @@
 /*   By: lotrapan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 14:01:13 by lotrapan          #+#    #+#             */
-/*   Updated: 2024/06/04 20:25:57 by lotrapan         ###   ########.fr       */
+/*   Updated: 2024/06/04 20:56:17 by lotrapan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,23 +60,24 @@ t_list   	*fake_parse(char *input)
 }
 int main()
 {
-	char	*shell;
-	t_list	line;
+	char	*line;
+	t_list	shell;
 
-	line = (t_list){0};
+	shell = (t_list){0};
 	while (42)
 	{
-		shell = readline("Minishell > ");
-		line = *fake_parse(shell);
-		if (line.str == NULL)
+		line = readline("Minishell > ");
+		shell = *fake_parse(line);
+		if (shell.str == NULL)
 			printf("Error\n");
 		/*if (!av)
 			builtin_exit(NULL); */
-		if (ft_strncmp(line.str, "exit", 5) == 0)
-			builtin_exit(&line);
-		if (ft_strncmp(line.str, "echo", 5) == 0)
-			builtin_echo(&line);
-		free(shell);
-		//ft_lstclear(&all);
+		if (ft_strncmp(shell.str, "exit", 5) == 0)
+			builtin_exit(&shell);
+		if (ft_strncmp(shell.str, "echo", 5) == 0)
+			builtin_echo(&shell);
+		if (line != NULL)
+			free(line);
+		//ft_lstclear((**shell), free);
 	}
 }
