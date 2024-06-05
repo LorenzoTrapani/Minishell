@@ -6,46 +6,83 @@
 /*   By: lotrapan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 14:02:54 by lotrapan          #+#    #+#             */
-/*   Updated: 2024/05/31 18:28:42 by lotrapan         ###   ########.fr       */
+/*   Updated: 2024/06/04 20:56:09 by lotrapan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int numeric_check(char *str)
+unsigned int	ft_uatoi(const char *str)
 {
-	int	i;
+	int					i;
+	int					sign;
+	unsigned int		n;
 
 	i = 0;
-	while(str[i])
-	{
-		if (!ft_isdigit(str[i]))
-			return (0);
+	sign = 1;
+	n = 0;
+	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n'
+		|| str[i] == '\v' || str[i] == '\f' || str[i] == '\r')
 		i++;
+	if (str[i] == '-' || (str[i] == '+'))
+	{
+		if (str[i] == '-')
+			sign *= -1;
+		i++;
+	}
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		n = n * 10 + (str[i] - '0');
+		i++;
+	}
+	return (n * sign);
+}
+
+int	numeric_check(t_list *shell)
+{
+	int		i;
+	t_list	*tmp;
+
+	i = 0;
+	tmp = shell;
+	if (tmp->next)
+		tmp = tmp->next;
+	while (tmp)
+	{
+		while (tmp->str[i])
+		{
+			if (tmp->str[i] == '-' || tmp->str[i] == '+')
+				i++;
+			if (!ft_isdigit(tmp->str[i]))
+				return (0);
+			i++;
+		}
+		tmp = tmp->next;
 	}
 	return (1);
 }
 
-void	builtin_exit(char **av)
+int	builtin_exit(t_list *shell)
 {
-	if (av == NULL)
-	{
-		ft_printf(1, "exit\n");
-		exit(0);
-	}
+	long long	exit_code;
+
+	exit_code = 0;
 	ft_printf(1, "exit\n");
-	if (!av[1])
-		exit(0);
-	if (av[1] && numeric_check(av[1]) && !av[2])
-		exit(ft_atoi(av[1]));
-	if (av[2] && numeric_check(av[2]))
+	shell->size = ft_lstsize(shell);
+	if (shell->size == 1) // da cambiare in futuro gestione ctrl + D quando si fanno segnali(adesso segfaulta)
+		exit(exit_code);
+	if (shell->size > 2)
 	{
-		ft_printf(1, "bash: exit: too many arguments\n");	
-		exit(1);
+		ft_printf(1, "minishell: exit: too many arguments\n");
+		return (1);
 	}
-	else
+	if (numeric_check(shell) == 0)
 	{
-		ft_printf(1, "bash: exit: rrt: numeric argument required\n");
-		exit(2);
+		ft_printf(1, "minishell: exit: rrt: numeric argument required\n");
+		exit_code = 2;
 	}
+	if (shell->size == 2 && exit_code != 2)
+		exit_code = ft_uatoi(shell->next->str);
+	//free_shell(shell);
+	exit(exit_code);
 }
