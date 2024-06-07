@@ -6,7 +6,7 @@
 /*   By: lotrapan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 14:02:54 by lotrapan          #+#    #+#             */
-/*   Updated: 2024/06/04 20:56:09 by lotrapan         ###   ########.fr       */
+/*   Updated: 2024/06/07 17:28:49 by lotrapan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,22 +38,22 @@ unsigned int	ft_uatoi(const char *str)
 	return (n * sign);
 }
 
-int	numeric_check(t_list *shell)
+int	numeric_check(t_input *cmd_line)
 {
 	int		i;
-	t_list	*tmp;
+	t_input	*tmp;
 
 	i = 0;
-	tmp = shell;
+	tmp = cmd_line;
 	if (tmp->next)
 		tmp = tmp->next;
 	while (tmp)
 	{
-		while (tmp->str[i])
+		while (tmp->content[i])
 		{
-			if (tmp->str[i] == '-' || tmp->str[i] == '+')
+			if (tmp->content[i] == '-' || tmp->content[i] == '+')
 				i++;
-			if (!ft_isdigit(tmp->str[i]))
+			if (!ft_isdigit(tmp->content[i]))
 				return (0);
 			i++;
 		}
@@ -62,27 +62,26 @@ int	numeric_check(t_list *shell)
 	return (1);
 }
 
-int	builtin_exit(t_list *shell)
+int	builtin_exit(t_input *cmd_line)
 {
-	long long	exit_code;
+	int	exit_code;
 
 	exit_code = 0;
 	ft_printf(1, "exit\n");
-	shell->size = ft_lstsize(shell);
-	if (shell->size == 1) // da cambiare in futuro gestione ctrl + D quando si fanno segnali(adesso segfaulta)
+	if (dll_input_size(cmd_line) == 1) // da cambiare in futuro gestione ctrl + D quando si fanno segnali(adesso segfaulta)
 		exit(exit_code);
-	if (shell->size > 2)
+	if (dll_input_size(cmd_line) > 2)
 	{
 		ft_printf(1, "minishell: exit: too many arguments\n");
 		return (1);
 	}
-	if (numeric_check(shell) == 0)
+	if (numeric_check(cmd_line) == 0)
 	{
 		ft_printf(1, "minishell: exit: rrt: numeric argument required\n");
 		exit_code = 2;
 	}
-	if (shell->size == 2 && exit_code != 2)
-		exit_code = ft_uatoi(shell->next->str);
+	if (dll_input_size(cmd_line) == 2 && exit_code != 2)
+		exit_code = ft_uatoi(cmd_line->next->content);
 	//free_shell(shell);
 	exit(exit_code);
 }

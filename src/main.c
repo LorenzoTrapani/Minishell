@@ -6,78 +6,71 @@
 /*   By: lotrapan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 14:01:13 by lotrapan          #+#    #+#             */
-/*   Updated: 2024/06/04 20:56:17 by lotrapan         ###   ########.fr       */
+/*   Updated: 2024/06/07 22:11:37 by lotrapan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
-void	add_node(t_list **a, char *str)
+t_list	*set_env_lst(char **envp)
 {
-	t_list	*new;
-	t_list	*last_node;
+	int	i;
+	t_list *env; 
 
-	if (a == NULL)
-		return ;
-	new = malloc(sizeof(t_list));
-	if (!new)
-		return ;
-	new->str = str;
-	if (str[0] == '-')
-		new->token = 1;
-	new->next = NULL;
-	if (!*a)
+	i = 0;
+	env = NULL;
+	while (envp[i])
 	{
-		*a = new;
-		new->next = NULL;
+		ft_lstadd_back(&env, ft_lstnew(envp[i]));
+		i++;
 	}
-	else
-	{
-		last_node = *a;
-		while (last_node->next)
-			last_node = last_node->next;
-		last_node->next = new;
-		new->prev = last_node;
-	}
+	return (env);
 }
 
-t_list   	*fake_parse(char *input)
+t_input   	*fake_parse(char *input)
 {
 	char	**av;
 	int 	i;
-	t_list	*parse_line = NULL; 
+	t_input	*parse_line;
 
+	parse_line = NULL;
 	i = 0;
 	av = ft_split(input, ' ');
 	while (av[i])
 	{
-		add_node(&parse_line, av[i]);
+		dll_input_addback(&parse_line, dll_input_new(av[i]));
 		i++;
 	}
 	free(av);
 	return (parse_line);
 }
-int main()
+
+void	shell_struct_init(t_all *shell, char **envp)
+{
+	shell->envp = set_env_lst(envp);
+}
+
+int main(int ac, char **av, char **envp)
 {
 	char	*line;
-	t_list	shell;
+	t_all	shell;
 
-	shell = (t_list){0};
+	shell = (t_all){0};
+	if (ac != 1)
+	{
+		ft_printf(2, "error: wrong number of arguments\n");
+		return (0);
+	}
+	(void)av;
+	shell_struct_init(&shell, envp);
 	while (42)
 	{
 		line = readline("Minishell > ");
-		shell = *fake_parse(line);
-		if (shell.str == NULL)
-			printf("Error\n");
-		/*if (!av)
-			builtin_exit(NULL); */
-		if (ft_strncmp(shell.str, "exit", 5) == 0)
-			builtin_exit(&shell);
-		if (ft_strncmp(shell.str, "echo", 5) == 0)
-			builtin_echo(&shell);
-		if (line != NULL)
-			free(line);
+		shell.cmd_line = fake_parse(line);
+		if (shell.cmd_line == NULL)
+			printf("Error: CTRL+D\n"); //da gestire con i segnali
+		exec_main(&shell);
+		free(line);
 		//ft_lstclear((**shell), free);
 	}
 }
