@@ -28,15 +28,20 @@ static size_t	ft_strlcpy_skip(char *dst, const char *src, size_t size, int skip)
 	return ((size_t)ft_strlen(src));
 }
 
-static void	str_replace_env(t_list *envp, char *str)
+//change_env_variable
+static void	str_replace_env(t_list *envp, char *str)//add char *variablr
 {
 	int		i;
 	char	*new;
 	t_list	*tmp;
 
 	i = 0;
-	new = getcwd(NULL, 0);
+	//findlathinev(variable);
+	//content char e skip di len(new)
+	//str = stringa da rimpiazzare
+	new = getcwd(NULL, 0); // spostare fuori
 	tmp = envp;
+	// aggiustare resto per far funzionare 
 	if (!new)
 		return ;
 	while (tmp)
