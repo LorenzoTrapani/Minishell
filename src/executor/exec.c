@@ -6,13 +6,13 @@
 /*   By: lotrapan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 16:18:28 by lotrapan          #+#    #+#             */
-/*   Updated: 2024/06/07 22:31:02 by lotrapan         ###   ########.fr       */
+/*   Updated: 2024/06/10 18:00:18 by lotrapan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*find_path_in_env(t_list *envp)
+char	*find_word_in_env(t_list *envp, char *word)
 {
 	int	i;
 	char *str;
@@ -21,8 +21,8 @@ char	*find_path_in_env(t_list *envp)
 	while (envp)
 	{
 		str = (char *)envp->content;
-		if (ft_strncmp(&str[i], "PATH=", 5) == 0)
-			return (&str[i] + 5);
+		if (ft_strncmp(&str[i], word, ft_strlen(word)) == 0)
+			return (&str[i] + ft_strlen(word));
 		envp = envp->next;
 	}
 	return (NULL);
@@ -37,7 +37,7 @@ char	*get_path(t_all *shell, char *cmd)
 	char	**possible_paths;
 
 	i = 0;
-	path_env = find_path_in_env(shell->envp); //prendo la riga dell PATH dall'env
+	path_env = find_word_in_env(shell->envp, "PATH"); //prendo la riga dell PATH dall'env
 	if (!path_env)
 		return (NULL);
 	possible_paths = ft_split(path_env, ':'); //mtx di tutte le path possibili
@@ -60,7 +60,7 @@ char	*get_path(t_all *shell, char *cmd)
 void	exec_builtin(t_all *shell)
 {
 	if (ft_strncmp(shell->cmd_line->content, "exit", 4) == 0)
-		builtin_exit(shell->cmd_line);
+		builtin_exit(shell, shell->cmd_line);
 	if (ft_strncmp(shell->cmd_line->content, "echo", 4) == 0)
 		builtin_echo(shell->cmd_line);
 	if (ft_strncmp(shell->cmd_line->content, "env", 3) == 0)
@@ -68,7 +68,7 @@ void	exec_builtin(t_all *shell)
 	if (ft_strncmp(shell->cmd_line->content, "pwd", 3) == 0)
 		builtin_pwd();
 	if (ft_strncmp(shell->cmd_line->content, "cd", 2) == 0)
-		builtin_cd(shell->cmd_line);
+		builtin_cd(shell, shell->cmd_line);
 }
 
 bool	is_builtin(t_all *shell)
@@ -92,11 +92,11 @@ void	exec_command(t_all *shell, t_input *cmd_line)
 	char	*path;
 	char	**cmd;
 
-	cmd = lst_to_mtx(cmd_line); //da gestire in futuro(pipe, redirect, ...)
-	path = get_path(shell, cmd[0]);
 	pid = fork();
 	if (pid == 0)
 	{
+		cmd = lst_to_mtx(cmd_line); //da gestire in futuro(pipe, redirect, ...)
+		path = get_path(shell, cmd[0]);
 		if (execve(path, cmd, shell->ep_copy) == -1)
 		{
 			printf("%s: command not found\n", cmd[0]);
@@ -112,7 +112,5 @@ int	exec_main(t_all *shell)
 		exec_builtin(shell);
 	else if (!is_builtin(shell))
 		exec_command(shell, shell->cmd_line);
-	//fork
-	//child_process
 	return (1);
 }

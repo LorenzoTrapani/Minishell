@@ -6,7 +6,7 @@
 /*   By: lotrapan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 14:02:54 by lotrapan          #+#    #+#             */
-/*   Updated: 2024/06/07 17:28:49 by lotrapan         ###   ########.fr       */
+/*   Updated: 2024/06/09 21:11:52 by lotrapan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,11 @@ int	numeric_check(t_input *cmd_line)
 	return (1);
 }
 
-int	builtin_exit(t_input *cmd_line)
+int	builtin_exit(t_all *shell, t_input *cmd_line)
 {
-	int	exit_code;
-
-	exit_code = 0;
 	ft_printf(1, "exit\n");
 	if (dll_input_size(cmd_line) == 1) // da cambiare in futuro gestione ctrl + D quando si fanno segnali(adesso segfaulta)
-		exit(exit_code);
+		shell->exit_code = 0;
 	if (dll_input_size(cmd_line) > 2)
 	{
 		ft_printf(1, "minishell: exit: too many arguments\n");
@@ -78,10 +75,10 @@ int	builtin_exit(t_input *cmd_line)
 	if (numeric_check(cmd_line) == 0)
 	{
 		ft_printf(1, "minishell: exit: rrt: numeric argument required\n");
-		exit_code = 2;
+		shell->exit_code = 2;
 	}
-	if (dll_input_size(cmd_line) == 2 && exit_code != 2)
-		exit_code = ft_uatoi(cmd_line->next->content);
+	if (dll_input_size(cmd_line) == 2 && shell->exit_code != 2)
+		shell->exit_code = ft_uatoi(cmd_line->next->content);
 	//free_shell(shell);
-	exit(exit_code);
+	exit(shell->exit_code);
 }

@@ -6,7 +6,7 @@
 /*   By: lotrapan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 11:24:46 by lotrapan          #+#    #+#             */
-/*   Updated: 2024/06/07 22:17:13 by lotrapan         ###   ########.fr       */
+/*   Updated: 2024/06/10 15:55:35 by lotrapan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,23 +25,25 @@ int					char_rep_check(char *str, char c);
 /*------------------ENV------------------*/
 void				builtin_env(t_input *cmd_line, t_list *envp);
 /*------------------EXIT------------------*/
-int					builtin_exit(t_input *cmd_line);
+int					builtin_exit(t_all *shell, t_input *cmd_line);
 unsigned int		ft_uatoi(const char *str);
 int					numeric_check(t_input *cmd_line);
 /*------------------PWD------------------*/
 void				builtin_pwd(void);
 /*------------------CD------------------*/
-int					builtin_cd(t_input *cmd_line);
+int					builtin_cd(t_all *shell, t_input *cmd_line);
 /*------------------EXEC------------------*/
 bool				is_builtin(t_all *shell);
 void				exec_builtin(t_all *shell);
 int					exec_main(t_all *shell);
 void				exec_command(t_all *shell, t_input *cmd_line);
+/*------------------SIGNAL------------------*/
+void				signal_handle(t_all *shell);
 /*------------------FAKE_PARSE------------------*/
 t_list				*set_env_lst(char **envp);
 t_input   			*fake_parse(char *input);
 void				shell_struct_init(t_all *shell, char **envp);
-char				*find_path_in_env(t_list *envp);
+char				*find_word_in_env(t_list *envp, char *word);
 /*------------------FAKE_PARSE------------------*/
 char				**lst_to_mtx(t_input *lst);
 

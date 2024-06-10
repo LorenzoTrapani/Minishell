@@ -26,6 +26,7 @@ SRC =	./src/main.c \
 		./src/executor/exec.c \
 		./src/executor/input_dll.c \
 		./src/executor/utils.c \
+		./src/signal/signal_handle.c \
 
 all: $(NAME)
 

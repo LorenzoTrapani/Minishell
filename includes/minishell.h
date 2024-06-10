@@ -6,7 +6,7 @@
 /*   By: lotrapan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:15:46 by chsassi           #+#    #+#             */
-/*   Updated: 2024/06/07 22:23:34 by lotrapan         ###   ########.fr       */
+/*   Updated: 2024/06/09 21:02:41 by lotrapan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,7 @@
 # include <sys/ioctl.h>
 # include <term.h>
 # include <curses.h>
-
-//# define ECHO "echo";
-# define CD "cd";
-# define PWD "pwd";
-# define EXPORT "export";
-# define UNSET "unset";
-# define ENV "env";
-# define EXIT "exit";
+#include <signal.h>
 
 typedef struct	s_all	t_all;
 
@@ -49,6 +42,7 @@ typedef struct	s_all
 	t_list			*envp;
 	t_input			*cmd_line;	
 	char			**ep_copy;
+	int				exit_code;
 }	t_all;
 
 #endif
