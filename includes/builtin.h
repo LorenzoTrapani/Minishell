@@ -6,7 +6,7 @@
 /*   By: lotrapan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 11:24:46 by lotrapan          #+#    #+#             */
-/*   Updated: 2024/06/10 15:55:35 by lotrapan         ###   ########.fr       */
+/*   Updated: 2024/06/12 18:38:21 by lotrapan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,18 @@ void				exec_builtin(t_all *shell);
 int					exec_main(t_all *shell);
 void				exec_command(t_all *shell, t_input *cmd_line);
 /*------------------SIGNAL------------------*/
-void				signal_handle(t_all *shell);
+int					signal_handle(char *str);
+/*------------------FREE------------------*/
+void				cleanup(t_all *shell);
+void				dll_input_clear(t_input **lst);
 /*------------------FAKE_PARSE------------------*/
 t_list				*set_env_lst(char **envp);
 t_input   			*fake_parse(char *input);
 void				shell_struct_init(t_all *shell, char **envp);
 char				*find_word_in_env(t_list *envp, char *word);
-/*------------------FAKE_PARSE------------------*/
+/*------------------UTILS------------------*/
 char				**lst_to_mtx(t_input *lst);
+void				change_env_variable(t_list *envp, char *var, char *new);
 
 
 int					dll_input_size(t_input *lst);

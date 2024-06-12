@@ -6,7 +6,7 @@
 /*   By: lotrapan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:15:46 by chsassi           #+#    #+#             */
-/*   Updated: 2024/06/09 21:02:41 by lotrapan         ###   ########.fr       */
+/*   Updated: 2024/06/11 17:54:35 by lotrapan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@
 # include <sys/ioctl.h>
 # include <term.h>
 # include <curses.h>
-#include <signal.h>
+# include <signal.h>
+
 
 typedef struct	s_all	t_all;
 

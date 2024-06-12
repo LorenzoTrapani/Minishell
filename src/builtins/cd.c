@@ -6,54 +6,19 @@
 /*   By: lotrapan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 17:44:34 by lotrapan          #+#    #+#             */
-/*   Updated: 2024/06/10 18:57:39 by lotrapan         ###   ########.fr       */
+/*   Updated: 2024/06/11 13:06:10 by lotrapan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static size_t	ft_strlcpy_skip(char *dst, const char *src, size_t size, int skip)
+static int	update_envp(t_all *shell, char *old)
 {
-	size_t	i;
-
-	if (size == 0 || !src[skip])
-		return (ft_strlen(src));
-	i = skip;
-	while (src[i] && i < size - 1)
-	{
-		dst[i] = src[i];
-		i++;
-	}
-	dst[i] = '\0';
-	return ((size_t)ft_strlen(src));
-}
-
-static void	str_replace_env(t_list *envp, char *str)
-{
-	int		i;
 	char	*new;
-	t_list	*tmp;
 
-	i = 0;
 	new = getcwd(NULL, 0);
-	tmp = envp;
-	if (!new)
-		return ;
-	while (tmp)
-	{
-		if (ft_strncmp(tmp->content, str, 3) == 0)
-		{
-			ft_strlcpy_skip(tmp->content, new, ft_strlen(new) + 1, 4);
-			return ;
-		}
-		tmp = tmp->next;
-	}
-	return ;
-}
-
-static int	update_envp(t_all *shell)
-{
-	str_replace_env(shell->envp, "PWD");
+	change_env_variable(shell->envp, "PWD", new);
+	change_env_variable(shell->envp, "OLDPWD", old);
 	return (0);
 }
 
@@ -67,16 +32,19 @@ static int	cd_home(char *home_dir)
 int	builtin_cd(t_all *shell, t_input *cmd_line)
 {
 	char	*dir;
+	char	*old_pwd;
 
 	dir = NULL;
+	old_pwd = NULL;
 	if (!cmd_line->next)
-		return (cd_home(find_word_in_env(shell->envp, "HOME")));
+		return (cd_home(find_word_in_env(shell->envp, "HOME=")));
 	if (dll_input_size(cmd_line) > 2)
 		return (ft_printf(1, "minishell: cd: too many arguments\n"));
 	cmd_line = cmd_line->next;
 	dir = cmd_line->content;
+	old_pwd = getcwd(NULL, 0);
 	if (chdir(dir) == 0)
-		return (update_envp(shell));
+		return (update_envp(shell, old_pwd));
 	else
 		return(ft_printf(1, "minishell: cd: " "%s: No such file or directory\n", dir));
 }

@@ -1,31 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lotrapan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/11 22:05:54 by chsassi           #+#    #+#             */
-/*   Updated: 2024/06/12 18:25:13 by lotrapan         ###   ########.fr       */
+/*   Created: 2024/06/12 16:38:02 by lotrapan          #+#    #+#             */
+/*   Updated: 2024/06/12 18:07:13 by lotrapan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-size_t	ft_strlen(const char *str)
+void	cleanup(t_all *shell)
 {
-	int	i;
-
-	i = 0;
-	while (str && str[i])
-		i++;
-	return (i);
+	ft_lstclear(&shell->envp, *free);
+	free_mtx(shell->ep_copy);
 }
 
-/* int		main(void)
+void	dll_input_clear(t_input **lst)
 {
-	char	str[] = "Casa Mia";
-	int		i = ft_strlen(str);
+	t_input	*ptr;
 
-	printf("Strlen:		%i", i);
-} */
+	while (lst && *lst)
+	{
+		ptr = (*lst)->next;
+		free(*lst);
+		*lst = ptr;
+	}
+	*lst = NULL;
+}
