@@ -6,51 +6,19 @@
 /*   By: lotrapan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 17:44:34 by lotrapan          #+#    #+#             */
-/*   Updated: 2024/06/12 19:00:19 by lotrapan         ###   ########.fr       */
+/*   Updated: 2024/06/12 19:11:40 by lotrapan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static size_t	ft_strlcpy_skip(char *dst, const char *src, size_t size, int skip)
-{
-	size_t	i;
-
-	if (size == 0 || !src[skip])
-		return (ft_strlen(src));
-	i = skip;
-	while (src[i] && i < size - 1)
-	{
-		dst[i] = src[i];
-		i++;
-	}
-	dst[i] = '\0';
-	return ((size_t)ft_strlen(src));
-}
-
-static void	str_replace_env(t_list *envp, char *str)
+static int	update_envp(t_all *shell, char *old)
 {
 	char	*new;
 
-	i = 0;
-	tmp = envp;
-	if (!new)
-		return ;
-	while (tmp)
-	{
-		if (ft_strncmp(tmp->content, str, 3) == 0)
-		{
-			ft_strlcpy_skip(tmp->content, new, ft_strlen(new) + 1, 4);
-			return ;
-		}
-		tmp = tmp->next;
-	}
-	return ;
-}
-
-static int	update_envp(t_all *shell)
-{
-	str_replace_env(shell->envp, "PWD");
+	new = getcwd(NULL, 0);
+	change_env_variable(shell->envp, "PWD", new);
+	change_env_variable(shell->envp, "OLD", old);
 	return (0);
 }
 
