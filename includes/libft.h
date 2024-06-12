@@ -6,7 +6,7 @@
 /*   By: lotrapan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 17:42:47 by chsassi           #+#    #+#             */
-/*   Updated: 2024/06/04 16:11:35 by lotrapan         ###   ########.fr       */
+/*   Updated: 2024/06/07 17:42:57 by lotrapan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,22 +27,11 @@
 
 #  define FD_MAX 4096
 
-typedef struct	s_list
+typedef struct s_list
 {
-	char			*path;
 	void			*content;
-	char			*str;
-	int				size;
-	int				token; // 0 = word, 1 = flag
 	struct s_list	*next;
-	struct s_list	*prev;
 }	t_list;
-
-/* typedef struct s_list
-{
-	void			*content;
-	struct s_list	*next;
-}	t_list; */
 
 typedef struct s_dll
 {

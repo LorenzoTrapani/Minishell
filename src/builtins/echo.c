@@ -6,7 +6,7 @@
 /*   By: lotrapan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 14:02:57 by lotrapan          #+#    #+#             */
-/*   Updated: 2024/06/04 20:33:41 by lotrapan         ###   ########.fr       */
+/*   Updated: 2024/06/09 13:28:04 by lotrapan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,23 +26,23 @@ int	char_rep_check(char *str, char c)
 	return (1);
 }
 
-void	print_echo(t_list *tmp)
+void	print_echo(t_input *tmp)
 {
 	while (tmp)
 	{
-		ft_printf(1, "%s", tmp->str);
+		ft_printf(1, "%s", tmp->content);
 		if (tmp->next)
 			ft_printf(1, " ");
 		tmp = tmp->next;
 	}
 }
 
-void	builtin_echo(t_list *shell)
+void	builtin_echo(t_input *cmd_line)
 {
-	t_list	*tmp;
+	t_input	*tmp;
 	bool	flag;
 
-	tmp = shell;
+	tmp = cmd_line;
 	flag = false;
 	if (!tmp->next)
 	{
@@ -50,9 +50,9 @@ void	builtin_echo(t_list *shell)
 		return ;
 	}
 	tmp = tmp->next;
-	while (tmp && tmp->str[0] == '-')
+	while (tmp && tmp->content[0] == '-')
 	{
-		if (char_rep_check(tmp->str, 'n') && !flag)
+		if (char_rep_check(tmp->content, 'n') && !flag)
 			flag = true;
 		else
 			break ;

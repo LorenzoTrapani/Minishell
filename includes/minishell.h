@@ -6,7 +6,7 @@
 /*   By: lotrapan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:15:46 by chsassi           #+#    #+#             */
-/*   Updated: 2024/06/04 15:34:58 by lotrapan         ###   ########.fr       */
+/*   Updated: 2024/06/11 17:54:35 by lotrapan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,30 +19,31 @@
 # include <readline/history.h>
 # include <sys/stat.h>
 # include <sys/types.h>
+# include <sys/wait.h>
 # include <dirent.h>
 # include <termios.h>
 # include <sys/ioctl.h>
 # include <term.h>
 # include <curses.h>
+# include <signal.h>
 
-// # define ECHO "echo";
-# define CD "cd";
-# define PWD "pwd";
-# define EXPORT "export";
-# define UNSET "unset";
-# define ENV "env";
-# define EXIT "exit";
 
 typedef struct	s_all	t_all;
 
+typedef struct	s_input
+{
+	char			*content;
+	int				token;
+	struct s_input	*next;	
+	struct s_input	*prev;
+}	t_input;
+
 typedef struct	s_all
 {
-	
-	t_list				*av;
-	struct s_all		*next;
-	struct s_all		*prev;	
+	t_list			*envp;
+	t_input			*cmd_line;	
+	char			**ep_copy;
+	int				exit_code;
 }	t_all;
-
-t_all   parse_line(char *input);
 
 #endif

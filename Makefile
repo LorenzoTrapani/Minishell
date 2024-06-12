@@ -21,7 +21,13 @@ SRC =	./src/main.c \
 		./src/builtins/exit.c \
 		./src/builtins/export.c \
 		./src/builtins/pwd.c \
-		./src/builtins/unset.c
+		./src/builtins/unset.c \
+		./src/builtins/cd.c \
+		./src/executor/exec.c \
+		./src/executor/input_dll.c \
+		./src/executor/utils.c \
+		./src/executor/free.c \
+		./src/signal/signal_handle.c \
 
 all: $(NAME)
 
