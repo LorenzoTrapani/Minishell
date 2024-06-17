@@ -6,27 +6,30 @@
 /*   By: lotrapan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 16:38:02 by lotrapan          #+#    #+#             */
-/*   Updated: 2024/06/12 18:07:13 by lotrapan         ###   ########.fr       */
+/*   Updated: 2024/06/17 18:58:26 by lotrapan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	cleanup(t_all *shell)
+static void	clear_list(t_list *envp)
 {
-	ft_lstclear(&shell->envp, *free);
-	free_mtx(shell->ep_copy);
+	t_list	*tmp;
+
+	tmp = envp;
+	if (!tmp->content)
+	{
+		printf("aaaaaaa\n");
+		return ;
+	}
+	while (tmp)
+	{
+		free(tmp->content);
+		tmp = tmp->next;
+	}
 }
 
-void	dll_input_clear(t_input **lst)
+void	cleanup(t_all *shell)
 {
-	t_input	*ptr;
-
-	while (lst && *lst)
-	{
-		ptr = (*lst)->next;
-		free(*lst);
-		*lst = ptr;
-	}
-	*lst = NULL;
+	clear_list(shell->envp);
 }
