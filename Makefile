@@ -24,10 +24,29 @@ SRC =	./src/main.c \
 		./src/builtins/unset.c \
 		./src/builtins/cd.c \
 		./src/executor/exec.c \
-		./src/executor/input_dll.c \
 		./src/executor/utils.c \
 		./src/executor/free.c \
 		./src/signal/signal_handle.c \
+		./src/free_exit_handling/free_parsing.c \
+		./src/lst_input_handling/dll_input_addback.c \
+		./src/lst_input_handling/dll_input_addfront.c \
+		./src/lst_input_handling/dll_input_clear.c \
+		./src/lst_input_handling/dll_input_last.c \
+		./src/lst_input_handling/dll_input_new.c \
+		./src/lst_input_handling/dll_input_size.c \
+		./src/parsing/expansion/expand_with_quotes.c \
+		./src/parsing/expansion/expand.c \
+		./src/parsing/expansion/get_env.c \
+		./src/parsing/expansion/handling_env.c \
+		./src/parsing/get_all_info.c \
+		./src/parsing/get_arr_token.c \
+		./src/parsing/get_input_complete.c \
+		./src/parsing/get_merged_cmd_line.c \
+		./src/parsing/get_mtx_input.c \
+		./src/parsing/handling_char.c \
+		./src/parsing/handling_merge_flag.c \
+		./src/parsing/handling_token.c \
+		./src/parsing/trim_quotes.c
 
 all: $(NAME)
 

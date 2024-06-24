@@ -6,11 +6,33 @@
 /*   By: lotrapan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 21:51:31 by lotrapan          #+#    #+#             */
-/*   Updated: 2024/06/12 18:51:46 by lotrapan         ###   ########.fr       */
+/*   Updated: 2024/06/17 18:52:37 by lotrapan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char	**lst_to_mtx(t_input *lst)
+{
+	int		i;
+	int		len;
+	char	**mtx;
+
+	i = 0;
+	len = dll_input_size(lst);
+	mtx = malloc(sizeof(char *) * (len + 1));
+	if (!mtx)
+		return (NULL);
+	while (lst)
+	{
+		mtx[i] = ft_strdup(lst->content);
+		i++;
+		lst = lst->next;
+		
+	}
+	mtx[i] = NULL;
+	return(mtx);
+}
 
 t_list	*set_env_lst(char **envp)
 {

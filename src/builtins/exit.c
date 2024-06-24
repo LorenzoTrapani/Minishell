@@ -6,7 +6,7 @@
 /*   By: lotrapan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 14:02:54 by lotrapan          #+#    #+#             */
-/*   Updated: 2024/06/12 18:05:37 by lotrapan         ###   ########.fr       */
+/*   Updated: 2024/06/17 19:03:18 by lotrapan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,5 @@ int	builtin_exit(t_all *shell, t_input *cmd_line)
 	}
 	if (dll_input_size(cmd_line) == 2 && shell->exit_code != 2)
 		shell->exit_code = ft_uatoi(cmd_line->next->content);
-	dll_input_clear(&shell->cmd_line);
-	cleanup(shell);
 	exit(shell->exit_code);
 }
